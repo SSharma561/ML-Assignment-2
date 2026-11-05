@@ -1,3 +1,11 @@
+from pathlib import Path
+
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA_PATH = ROOT / "data" / "breast_cancer.csv"
+
 """
 Dataset : Breast Cancer Wisconsin (Diagnostic) - UCI Machine Learning Repository
           https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
@@ -8,15 +16,6 @@ Target  : diagnosis -> 1 = Malignant, 0 = Benign (binary classification)
 scikit-learn ships an exact copy of this UCI dataset, so we load it from there
 (no internet / Kaggle login needed) and save it as a CSV inside data/.
 """
-
-from pathlib import Path
-
-import pandas as pd
-from sklearn.datasets import load_breast_cancer
-
-ROOT = Path(__file__).resolve().parent.parent
-DATA_PATH = ROOT / "data" / "breast_cancer.csv"
-
 
 def main() -> None:
     raw = load_breast_cancer(as_frame=True)

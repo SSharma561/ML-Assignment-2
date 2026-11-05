@@ -1,7 +1,3 @@
-"""
-Step 2 - Quick Exploratory Data Analysis.
-Prints basic stats and saves two plots into reports/.
-"""
 from pathlib import Path
 
 import matplotlib
@@ -15,7 +11,10 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "breast_cancer.csv"
 REPORT_DIR = ROOT / "reports"
 
-
+"""
+Quick Exploratory Data Analysis.
+Prints basic stats and saves two plots into reports/.
+"""
 def main() -> None:
     df = pd.read_csv(DATA_PATH)
     REPORT_DIR.mkdir(exist_ok=True)
