@@ -117,3 +117,29 @@ with tab_single:
     cols = st.columns(6)
     for col, (metric, value) in zip(cols, scores.items()):
         col.metric(metric, "N/A" if pd.isna(value) else f"{value:.4f}")
+
+# ---------- Tab 1 (cont.): confusion matrix + classification report ----------
+with tab_single:
+    y_pred = model.predict(X)
+    left, right = st.columns(2)
+
+    with left:
+        st.subheader("Confusion matrix")
+        cm = confusion_matrix(y, y_pred, labels=[0, 1])
+        fig, ax = plt.subplots(figsize=(4.5, 3.8))
+        sns.heatmap(
+            cm, annot=True, fmt="d", cmap="Blues", cbar=False,
+            xticklabels=CLASS_NAMES, yticklabels=CLASS_NAMES, ax=ax,
+        )
+        ax.set_xlabel("Predicted")
+        ax.set_ylabel("Actual")
+        st.pyplot(fig)
+        plt.close(fig)
+
+    with right:
+        st.subheader("Classification report")
+        report = classification_report(
+            y, y_pred, labels=[0, 1], target_names=CLASS_NAMES,
+            output_dict=True, zero_division=0,
+        )
+        st.dataframe(pd.DataFrame(report).T.round(4), use_container_width=True)
