@@ -143,3 +143,27 @@ with tab_single:
             output_dict=True, zero_division=0,
         )
         st.dataframe(pd.DataFrame(report).T.round(4), use_container_width=True)
+
+# ---------- Tab 2: all models ----------
+with tab_compare:
+    st.subheader("All 5 models on the uploaded data")
+    rows = []
+    for name, filename in MODEL_FILES.items():
+        rows.append({"ML Model Name": name, **evaluate_model(load_model(filename), X, y)})
+    table = pd.DataFrame(rows).set_index("ML Model Name").round(4)
+    st.dataframe(
+        table.style.highlight_max(axis=0, color="#c6efce").format("{:.4f}"),
+        use_container_width=True,
+    )
+
+    fig, ax = plt.subplots(figsize=(10, 4))
+    table.plot(kind="bar", ax=ax, width=0.8)
+    ax.set_ylim(0.7, 1.0)
+    ax.set_ylabel("Score")
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.12), ncol=6, fontsize=8, frameon=False)
+    plt.xticks(rotation=0)
+    st.pyplot(fig)
+    plt.close(fig)
+
+    best = table["F1"].idxmax()
+    st.success(f"Best model on this data by F1 score: **{best}**")
