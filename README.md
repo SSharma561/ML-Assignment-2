@@ -1,7 +1,7 @@
 # ML Assignment 2 – Breast Cancer Classification with 5 ML Models
 
-**Live Streamlit app:** <Streamlit-app>
-**GitHub repository:** <GITHUB-LInk>
+**Live Streamlit app:** https://ml-assignment-2-punra7aiwm6bgxg6rlixop.streamlit.app/
+**GitHub repository:** https://github.com/SSharma561/ML-Assignment-2.git
 
 ---
 
