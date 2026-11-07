@@ -105,3 +105,15 @@ X, y = df[FEATURES], df[TARGET].astype(int)
 
 with st.expander(f"Preview uploaded data ({df.shape[0]} rows × {df.shape[1]} columns)"):
     st.dataframe(df.head(20), use_container_width=True)
+
+tab_single, tab_compare = st.tabs(["Selected model", "Compare all models"])
+
+# ---------- Tab 1: selected model ----------
+with tab_single:
+    model = load_model(MODEL_FILES[model_name])
+    scores = evaluate_model(model, X, y)
+
+    st.subheader(f"Evaluation metrics - {model_name}")
+    cols = st.columns(6)
+    for col, (metric, value) in zip(cols, scores.items()):
+        col.metric(metric, "N/A" if pd.isna(value) else f"{value:.4f}")
